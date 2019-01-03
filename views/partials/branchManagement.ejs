@@ -1,0 +1,17 @@
+<h2>Branches List</h2>
+<table>
+	<tr>
+		<th>ID</th>
+		<th>Name</th>
+		<th>City</th>
+	</tr>
+	<% branches.forEach(function(branch) { %>
+		<% if(branch.active){ %>
+			<tr>
+				<th><%= branch.id %></th>
+				<th><%= branch.name %></th>
+				<th><%= branch.city %></th>
+			</tr>
+		<% } %>
+	<% }); %>
+</table>

@@ -1,0 +1,313 @@
+<h2>Users List</h2>
+<table>
+	<tr>
+		<th>ID</th>
+		<th>Name</th>
+		<th> Category </th>
+		<% if(category === 1){ %>
+			<th>Branch Id</th>
+			<th>userName</th>
+			<th>password</th>
+			<th>Edit</th>
+			<th>Delete</th>
+		<% } %>
+	</tr>
+	<% users.forEach(function(user) { %>
+		<% if(user.valid){ %>
+			<tr>
+				<td><%= user.id %></td>
+				<td><%= user.name %></td>
+				<td><%= user.category %></td>
+				<% if(category === "Manager"){ %>
+					<td><%= user.branchId %></td>
+					<td><%= user.userName %></td>
+					<td><%= user.password %></td>
+					<td><p class="mRow" id="myRow"  data-placement="top" data-toggle="tooltip" title="Edit"><button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal"  data-target="#editUserModal"  ><span class="glyphicon glyphicon-pencil" ></span></button></p></td>
+					<td><p class="mDel" id="del-button" data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
+				<% } %>
+			</tr>
+		<% } %>
+	<% }); %>
+</table>
+
+
+<button type="button" class="btn btn-danger btn-circle btn-lg"><i class="glyphicon glyphicon-plus" data-title="Add" data-toggle="modal" data-target="#addUserModal"></i></button>
+
+
+
+<!--add modal-->
+<div id="addUserModal" class="modal"  >
+	<div class="login-form">
+		<form id="logInForm" >
+			<button type="button" class="close" data-dismiss="modal">&times;</button>
+			<h2 class="text-center">User Information</h2>
+			<div class="form-group">
+				<input  type="text" id="addId" class="form-control" placeholder="id" required>
+			</div>
+			<div class="form-group">
+				<input type="text" id="addName" class="form-control" placeholder="name" required="required">
+			</div>
+			<div class="form-group">
+				<% if(category === "Manager") {%>
+					<select  onchange='addShowBranch()' id="addCategory">
+
+						<option>Manager</option>
+						<option>Worker</option>
+						<option selected="yes">Customer</option>
+						<option>Supplier</option>
+
+					</select>
+				<% }else{ %>
+					<input disabled="disabled"  value="Customer" id="addCategory">
+
+					</input>
+				<% } %>
+			</div>
+			<!--<div id="branch" class="form-group hide">
+				<input type="text" id="addBranchId" class="form-control" placeholder="branchId" value = "" required="required">
+			</div>-->
+			<div id="branch" class="form-group hide">
+				<select id="addBranchId">
+					<% branches.forEach(function(branch){ %>
+						<option><%= branch.id %></option>
+					<% }); %>
+				</select>
+			</div>
+			<div class="form-group">
+				<input type="text" id="addUserName" class="form-control" placeholder="userName" required="required">
+			</div>
+			<div class="form-group">
+				<input type="text" id="addPassword" class="form-control" placeholder="password" required="required">
+			</div>
+			<div class="form-group">
+				<button type="submit" id="addUser" class="btn btn-primary btn-block" data-dismiss="modal">Add</button>
+			</div>
+
+		</form>
+	</div>
+</div>
+
+
+
+<!--delete modal-->
+<div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
+	<div class="modal-dialog" id="deleteModal">
+		<div class="modal-content">
+			<div class="modal-header">
+
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+
+				<div class="col-xs-4">
+					<h4 class="modal-title custom_align" id="Heading">Delete this entry:</h4>
+					<label for="name" class="control-label">id:</label>
+					<input disabled="disabled" class="form-control" type="text"  id="toDel">
+				</div>
+
+
+			</div>
+			<div class="modal-body">
+				<div class="alert alert-danger"><span class="glyphicon glyphicon-warning-sign"></span> Are you sure you want to delete this Record?</div>
+			</div>
+			<div class="modal-footer ">
+				<button id="deleteBtnYes" type="button" class="btn btn-success" data-dismiss="modal" ><span class="glyphicon glyphicon-ok-sign"></span> Yes</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> No</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!--update modal-->
+<div id="editUserModal" class="modal"  >
+	<div class="login-form">
+		<form id="editForm" >
+			<button type="button" class="close" data-dismiss="modal">&times;</button>
+			<h2 class="text-center">User Information</h2>
+			<div class="form-group">
+				<input type="text" disabled="disabled" id="editId" class="form-control" placeholder="id" required="required">
+			</div>
+			<div class="form-group">
+				<input type="text" id="editName" class="form-control" placeholder="name" required="required">
+			</div>
+			<div class="form-group">
+				<select  onchange='updateShowBranch()' id="UpdateCategory">
+
+					<option>Manager</option>
+					<option>Worker</option>
+					<option>Customer</option>
+					<option>Supplier</option>
+
+				</select>
+			</div>
+
+			<div id="editBranch" class="form-group hide">
+				<select id="editBranchId">
+					<% branches.forEach(function(branch){ %>
+						<option><%= branch.id %></option>
+					<% }); %>
+				</select>
+			</div>
+			<div class="form-group">
+				<input type="text" id="editUserName" class="form-control" placeholder="userName" required="required">
+			</div>
+			<div class="form-group">
+				<input type="text" id="editPassword" class="form-control" placeholder="password" required="required">
+			</div>
+			<div class="form-group">
+				<button type="submit" id="updateUser" class="btn btn-primary btn-block" data-dismiss="modal">Update</button>
+			</div>
+
+		</form>
+	</div>
+</div>
+
+
+
+
+
+
+
+
+<script>
+
+    $("#deleteBtnYes").click(function(){
+        var ID = $("#toDel").val();
+        let url ="/deleteUser";
+        let data = {
+            id: ID
+        }
+
+        fetch(url, {method : "POST",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        }).then(function(response) {
+            if (response.status !== 200) {
+
+                throw new Error("Not 200 response")
+            } else{
+                alert("ok");
+                $("main").load('/userManagement', {category: "<%= category %>"});
+            }
+        }).catch(function(error) {
+            console.log(error);
+        });
+
+
+
+    });
+
+
+    $("p.mDel").click(function() {
+        var rowData = $(this).parent().parent().children("td").map(function() {
+            return $(this).text();
+        }).get();
+        $(".modal-header #toDel").val(rowData[0]);
+    });
+
+
+    $("p.mRow").click(function() {
+        var rowData = $(this).parent().parent().children("td").map(function() {
+            return $(this).text();
+        }).get();
+
+        $("#editId").val( rowData[0] );
+        $("#editName").val(rowData[1] );
+        $("#UpdateCategory").val(rowData[2]);
+        updateShowBranch();
+        $("#editBranchId").val( rowData[3] );
+        $("#editUserName").val( rowData[4] );
+        $("#editPassword").val( rowData[5] );
+
+    });
+
+    $("#addUser").click(function(){
+        let isValid;
+        $("input").each(function() {
+            let element = $(this);
+            if (element.val() == "") {
+                isValid = false;
+            }
+        });
+        if (isValid) {
+            alert('some fields are empty!');
+            return false;
+        }
+        let url ="/addUser";
+        let data = {
+            id: $("#addId").val() ,
+            name: $("#addName").val() ,
+            category: $("#addCategory").val() ,
+            branchId: $("#addBranchId").val() ,
+            userName: $("#addUserName").val() ,
+            password: $("#addPassword").val()
+        }
+        fetch(url, {method : "POST",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        }).then(function(response) {
+            if (response.status !== 200) {
+
+                throw new Error("Not 200 response")
+            } else{
+                alert("ok");
+                $("main").load('/userManagement', {category:"<%= category %>"});
+            }
+        }).catch(function(error) {
+            console.log(error);
+        });
+    });
+
+    $("#updateUser").click(function(){
+        let isValid;
+        $("input").each(function() {
+            let element = $(this);
+            if (element.val() == "") {
+                isValid = false;
+            }
+        });
+        if (isValid) {
+            alert('some fields are empty!');
+            return false;
+        }
+        let name =$("#userName").val()
+        let pass =$("#password").val()
+        if (name == "" || pass == "" ) {
+            alert("Name must be filled out");
+            return false;
+        }
+        let url ="/updateUser";
+        let data = {
+            id : $("#editId").val() ,
+            name : $("#editName").val(),
+            branchId : $("#editBranchId").val(),
+            category : $("#UpdateCategory").val(),
+            userName : $("#editUserName").val(),
+            password : $("#editPassword").val()
+        }
+        fetch(url, {method : "POST",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        }).then(function(response) {
+            if (response.status !== 200) {
+
+                throw new Error("Not 200 response")
+            } else{
+                alert("ok");
+                $("main").load('/userManagement', {category:"<%= category %>"});
+            }
+        }).catch(function(error) {
+            console.log(error);
+        });
+    });
+
+
+</script>

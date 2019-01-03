@@ -1,0 +1,93 @@
+footer {
+	bottom: 0;
+	left: 0;
+	position: fixed;
+	text-align: center;
+	width: 100%;
+	z-index: -1;
+}
+
+    .btn-circle.btn-lg {
+  width: 50px;
+  height: 50px;
+  padding: 10px 16px;
+  font-size: 18px;
+  line-height: 1.33;
+  border-radius: 25px;
+  position: fixed;
+    bottom: 25px;
+    right: 25px; 
+}
+
+.myDiv{
+	margin-top:60px;
+	margin-Bottom:60px;
+}
+
+
+.hide{
+	display:none;  
+}
+.show{
+	display:block; 
+}
+.disable{
+	pointer-events: none;
+}
+.login-form {
+	width: 340px;
+	margin: 120px auto;
+	background: white;	
+}
+.login-form form {
+	margin-bottom: 15px;
+	background: #f7f7f7;
+	box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+	padding: 30px;
+}
+.login-form h2 {
+	margin: 0 0 15px;
+}
+.form-control, .btn {
+	min-height: 38px;
+	border-radius: 2px;
+}
+.btn {        
+	font-size: 15px;
+	font-weight: bold;
+}
+
+.row img {
+  width: 30vw;
+  height: 30vw;
+}
+
+.example-cover img {
+  object-fit: cover;
+}
+
+.example-contain img {
+  object-fit: contain;
+}
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+span.psw {
+	float: right;
+	padding-top: 16px;
+}
+
