@@ -43,7 +43,14 @@ app.use('/contactUs', contactUsRouter);
 app.use('/catalog', catalogRouter);
 app.use('/branchManagement', branchRouter);
 
+// Using the flash middleware provided by connect-flash to store messages in session
+// and displaying in templates
+let flash = require('connect-flash');
+app.use(flash());
 
+// Initialize Passport
+let initPassport = require('./passport/init');
+initPassport(passport);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
